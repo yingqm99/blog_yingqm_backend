@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yingqm.blog.db.mappers.BlogMapper">
+  <resultMap id="BaseResultMap" type="com.yingqm.blog.db.po.Blog">
+    <id column="blog_id" jdbcType="BIGINT" property="blogId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    blog_id, name, user_id, category, user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blogs
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from blogs
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yingqm.blog.db.po.Blog">
+    insert into blogs (blog_id, name, user_id, 
+      category, user_name)
+    values (#{blogId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{category,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yingqm.blog.db.po.Blog">
+    insert into blogs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogId != null">
+        blog_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogId != null">
+        #{blogId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yingqm.blog.db.po.Blog">
+    update blogs
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yingqm.blog.db.po.Blog">
+    update blogs
+    set name = #{name,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      category = #{category,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR}
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from blogs
+    where user_name = #{userName}
+  </select>
+
+  <select id="selectTopBlogs" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from blogs
+    LIMIT 50
+  </select>
+
+</mapper>

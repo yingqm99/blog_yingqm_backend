@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yingqm.blog.db.mappers.UserMapper">
+  <resultMap id="BaseResultMap" type="com.yingqm.blog.db.po.User">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="profile" jdbcType="VARCHAR" property="profile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, name, email, description, phone, profile, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from users
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.yingqm.blog.db.po.User">
+    insert into users (user_id, name, email, 
+      description, phone, profile, 
+      password)
+    values (#{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{profile,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yingqm.blog.db.po.User">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="profile != null">
+        profile,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="profile != null">
+        #{profile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yingqm.blog.db.po.User">
+    update users
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="profile != null">
+        profile = #{profile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yingqm.blog.db.po.User">
+    update users
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      profile = #{profile,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from users
+    where name = #{name}
+  </select>
+</mapper>
