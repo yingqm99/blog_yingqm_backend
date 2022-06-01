@@ -47,6 +47,8 @@ public class BrowseController {
         Blog blog = blogDao.selectBlogById(Long.parseLong(id));
         String blogText = s3Service.readBlog(blog.getName(), blog.getUserName());
         result.put("status", true);
+        result.put("title", blog.getName());
+        result.put("blogUser", blog.getUserName());
         result.put("blogText", result);
         return result;
     }

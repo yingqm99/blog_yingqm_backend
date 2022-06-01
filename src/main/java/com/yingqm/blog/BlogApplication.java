@@ -11,8 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class BlogApplication {
 
 	public static void main(String[] args) {
-		System.setProperty("aws.accessKeyId", "AKIAXF7UUV4KCNAZY4MK");
-		System.setProperty("aws.secretKey", "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");
 		SpringApplication.run(BlogApplication.class, args);
 	}
 

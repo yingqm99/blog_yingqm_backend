@@ -17,8 +17,6 @@ public class TestMain {
 
 
     public static void main(String[] args) {
-        System.setProperty("aws.accessKeyId", "AKIAXF7UUV4KCNAZY4MK");
-        System.setProperty("aws.secretKey", "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");
 //        S3Service s3 = new S3Service();
 //        s3.addBlog("aaa", "test1");
 //        System.out.println(System.getProperties());
