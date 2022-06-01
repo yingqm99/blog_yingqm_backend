@@ -27,4 +27,9 @@ public class BlogDaoImpl implements BlogDao {
         return blogMapper.selectTopBlogs();
     }
 
+    @Override
+    public Blog selectBlogById(Long Id) {
+        return blogMapper.selectByPrimaryKey(Id);
+    }
+
 }

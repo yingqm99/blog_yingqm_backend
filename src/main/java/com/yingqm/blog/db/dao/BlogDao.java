@@ -10,4 +10,6 @@ public interface BlogDao {
     public List<Blog> selectBlogsByUserName(String userName);
 
     List<Blog> getTopBlogs();
+
+    Blog selectBlogById(Long Id);
 }
